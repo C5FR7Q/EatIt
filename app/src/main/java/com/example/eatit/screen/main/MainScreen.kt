@@ -16,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rxjava3.subscribeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
@@ -24,6 +23,7 @@ import com.example.eatit.data.CandyCategory
 import com.example.eatit.data.CandyRepository
 import com.example.eatit.screen.main.back.BackDropMode
 import com.example.eatit.screen.main.back.BackLayerContent
+import com.example.eatit.screen.main.front.FrontLayerContent
 
 @Composable
 fun MainScreen() {
@@ -97,7 +97,7 @@ fun MainScreen() {
 						enabled = backDropMode != BackDropMode.NONE
 					)
 				) {
-					Feed()
+					FrontLayerContent(selectedFrontScreen)
 				}
 			}
 		}
@@ -136,11 +136,4 @@ private fun EatItAppBar(
 		},
 		elevation = 0.dp
 	)
-}
-
-@Composable
-private fun Feed() {
-	Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-		Text(text = "Feed")
-	}
 }
