@@ -50,20 +50,6 @@ fun MainScreen() {
 		setBackDropMode(BackDropMode.FILTER)
 	}
 
-	val candiesPrices = mutableListOf<Float>()
-	categories.forEach { category ->
-		candiesPrices.addAll(
-			category.candies.map { it.price }
-		)
-	}
-	val minPrice = candiesPrices.minOrNull()
-	val maxPrice = candiesPrices.maxOrNull()
-	val range = if (minPrice != null && maxPrice != null) {
-		minPrice.rangeTo(maxPrice)
-	} else {
-		0f.rangeTo(1f)
-	}
-
 	Scaffold(
 		topBar = {
 			EatItAppBar(
@@ -79,7 +65,6 @@ fun MainScreen() {
 			BackLayerContent(
 				backDropMode = backDropMode,
 				categories = categories,
-				range = range,
 				filteredCategories = filteredCategories,
 				setFilteredCategories = setFilteredCategories,
 				selectedFrontScreen = selectedFrontScreen,

@@ -11,7 +11,6 @@ import com.example.eatit.screen.main.front.FrontScreen
 fun BackLayerContent(
 	backDropMode: BackDropMode,
 	categories: List<CandyCategory>,
-	range: ClosedFloatingPointRange<Float>,
 	filteredCategories: List<CandyCategory>,
 	setFilteredCategories: (List<CandyCategory>) -> Unit,
 	selectedFrontScreen: FrontScreen,
@@ -22,7 +21,6 @@ fun BackLayerContent(
 			BackDropMode.FILTER -> {
 				FilterBackLayer(
 					categories = categories,
-					range = range,
 					filteredCategories = filteredCategories,
 					setFilteredCategories = setFilteredCategories
 				)

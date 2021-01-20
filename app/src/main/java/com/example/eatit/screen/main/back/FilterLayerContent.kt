@@ -23,15 +23,27 @@ import kotlin.math.ceil
 @Composable
 fun FilterBackLayer(
 	categories: List<CandyCategory>,
-	range: ClosedFloatingPointRange<Float>,
 	filteredCategories: List<CandyCategory>,
 	setFilteredCategories: (List<CandyCategory>) -> Unit
 ) {
+	val candiesPrices = mutableListOf<Float>()
+	categories.forEach { category ->
+		candiesPrices.addAll(
+			category.candies.map { it.price }
+		)
+	}
+	val minPrice = candiesPrices.minOrNull()
+	val maxPrice = candiesPrices.maxOrNull()
+	val priceRange = if (minPrice != null && maxPrice != null) {
+		minPrice.rangeTo(maxPrice)
+	} else {
+		0f.rangeTo(1f)
+	}
 	Column(
 		modifier = Modifier.padding(top = 17.dp, start = 16.dp, end = 16.dp, bottom = 34.dp)
 	) {
 		val (price, setPrice) = remember { mutableStateOf(0f) }
-		val progress = (price - range.start) / (range.endInclusive - range.start)
+		val priceProgress = (price - priceRange.start) / (priceRange.endInclusive - priceRange.start)
 		Text(
 			text = "Max price",
 			style = MaterialTheme.typography.body1,
@@ -44,7 +56,7 @@ fun FilterBackLayer(
 				val placeable = measurable.measure(constraints)
 				constraints.maxWidth
 				val maxOffsetX = constraints.maxWidth - placeable.width
-				val offsetX = ceil(maxOffsetX * progress).toInt()
+				val offsetX = ceil(maxOffsetX * priceProgress).toInt()
 				layout(offsetX + placeable.width, placeable.height) {
 					placeable.placeRelative(offsetX, 0)
 				}
@@ -55,7 +67,7 @@ fun FilterBackLayer(
 			onValueChange = setPrice,
 			activeTrackColor = MaterialTheme.colors.secondary,
 			thumbColor = tobaccoBrown,
-			valueRange = range
+			valueRange = priceRange
 		)
 		Text(
 			text = "Product type",
