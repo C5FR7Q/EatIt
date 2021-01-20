@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.eatit.screen.main.front.FrontScreen
+import com.example.eatit.screen.main.front.title
 
 @Composable
 fun MenuBackLayer(
@@ -27,12 +28,7 @@ fun MenuBackLayer(
 	) {
 		ProvideTextStyle(value = MaterialTheme.typography.h5) {
 			FrontScreen.values().forEach { frontScreen ->
-				val name = when (frontScreen) {
-					FrontScreen.MAIN -> "Main"
-					FrontScreen.CATEGORIES -> "Categories"
-					FrontScreen.FAVORITE -> "Favorite"
-					FrontScreen.PROFILE -> "Profile"
-				}
+				val name = frontScreen.title
 				SelectableText(
 					modifier = Modifier.padding(15.dp),
 					text = name,
