@@ -19,7 +19,6 @@ import com.example.eatit.data.CandyCategory
 import com.example.eatit.ui.tobaccoBrown
 import kotlin.math.ceil
 
-@OptIn(ExperimentalLayout::class)
 @Composable
 fun FilterBackLayer(
 	categories: List<CandyCategory>,
@@ -43,73 +42,105 @@ fun FilterBackLayer(
 		modifier = Modifier.padding(top = 17.dp, start = 16.dp, end = 16.dp, bottom = 34.dp)
 	) {
 		val (price, setPrice) = remember { mutableStateOf(0f) }
-		val priceProgress = (price - priceRange.start) / (priceRange.endInclusive - priceRange.start)
-		Text(
+		SliderItem(
 			text = "Max price",
-			style = MaterialTheme.typography.body1,
-			modifier = Modifier.padding(bottom = 7.dp)
-		)
-		Text(
-			text = "$${"%.2f".format(price)}",
-			style = MaterialTheme.typography.body2,
-			modifier = Modifier.layout { measurable, constraints ->
-				val placeable = measurable.measure(constraints)
-				constraints.maxWidth
-				val maxOffsetX = constraints.maxWidth - placeable.width
-				val offsetX = ceil(maxOffsetX * priceProgress).toInt()
-				layout(offsetX + placeable.width, placeable.height) {
-					placeable.placeRelative(offsetX, 0)
-				}
-			}
-		)
-		Slider(
+			indicatorText = "$${"%.2f".format(price)}",
 			value = price,
 			onValueChange = setPrice,
-			activeTrackColor = MaterialTheme.colors.secondary,
-			thumbColor = tobaccoBrown,
-			valueRange = priceRange
+			range = priceRange
 		)
-		Text(
-			text = "Product type",
-			style = MaterialTheme.typography.body1,
-			modifier = Modifier.padding(top = 23.dp, bottom = 12.dp)
+		Chips(
+			categories = categories,
+			filteredCategories = filteredCategories,
+			setFilteredCategories = setFilteredCategories
 		)
-		FlowRow(
-			mainAxisSpacing = 6.dp,
-			crossAxisSpacing = 6.dp
-		) {
-			categories.forEach { category ->
-				Chip(
-					text = category.name,
-					isSelected = filteredCategories.contains(category),
-					switchSelection = {
-						if (category.isAllCategory) {
-							if (!filteredCategories.contains(category)) {
-								setFilteredCategories(categories)
-							}
-						} else {
-							setFilteredCategories(filteredCategories.toMutableList().apply {
-								if (contains(category)) {
-									if (size > 1) {
-										remove(category)
-									}
-								} else {
-									add(category)
-								}
-								val allCategory = categories.firstOrNull { it.isAllCategory }
-								val allCategoriesExceptAll = categories.toMutableList().apply { remove(allCategory) }
-								if (containsAll(allCategoriesExceptAll)) {
-									allCategory?.let { add(it) }
-								} else {
-									allCategory?.let { remove(it) }
-								}
-							})
-						}
-					}
-				)
+	}
+}
+
+@Composable
+private fun SliderItem(
+	text: String,
+	indicatorText: String,
+	value: Float,
+	onValueChange: (Float) -> Unit,
+	range: ClosedFloatingPointRange<Float>
+) {
+	val progress = (value - range.start) / (range.endInclusive - range.start)
+	Text(
+		text = text,
+		style = MaterialTheme.typography.body1,
+		modifier = Modifier.padding(bottom = 7.dp)
+	)
+	Text(
+		text = indicatorText,
+		style = MaterialTheme.typography.body2,
+		modifier = Modifier.layout { measurable, constraints ->
+			val placeable = measurable.measure(constraints)
+			constraints.maxWidth
+			val maxOffsetX = constraints.maxWidth - placeable.width
+			val offsetX = ceil(maxOffsetX * progress).toInt()
+			layout(offsetX + placeable.width, placeable.height) {
+				placeable.placeRelative(offsetX, 0)
 			}
 		}
+	)
+	Slider(
+		value = value,
+		onValueChange = onValueChange,
+		activeTrackColor = MaterialTheme.colors.secondary,
+		thumbColor = tobaccoBrown,
+		valueRange = range
+	)
+}
+
+@OptIn(ExperimentalLayout::class)
+@Composable
+private fun Chips(
+	categories: List<CandyCategory>,
+	filteredCategories: List<CandyCategory>,
+	setFilteredCategories: (List<CandyCategory>) -> Unit
+) {
+	Text(
+		text = "Product type",
+		style = MaterialTheme.typography.body1,
+		modifier = Modifier.padding(top = 23.dp, bottom = 12.dp)
+	)
+	FlowRow(
+		mainAxisSpacing = 6.dp,
+		crossAxisSpacing = 6.dp
+	) {
+		categories.forEach { category ->
+			Chip(
+				text = category.name,
+				isSelected = filteredCategories.contains(category),
+				switchSelection = {
+					if (category.isAllCategory) {
+						if (!filteredCategories.contains(category)) {
+							setFilteredCategories(categories)
+						}
+					} else {
+						setFilteredCategories(filteredCategories.toMutableList().apply {
+							if (contains(category)) {
+								if (size > 1) {
+									remove(category)
+								}
+							} else {
+								add(category)
+							}
+							val allCategory = categories.firstOrNull { it.isAllCategory }
+							val allCategoriesExceptAll = categories.toMutableList().apply { remove(allCategory) }
+							if (containsAll(allCategoriesExceptAll)) {
+								allCategory?.let { add(it) }
+							} else {
+								allCategory?.let { remove(it) }
+							}
+						})
+					}
+				}
+			)
+		}
 	}
+
 }
 
 @Composable
