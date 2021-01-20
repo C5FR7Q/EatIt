@@ -78,7 +78,9 @@ fun FilterBackLayer(
 						} else {
 							setFilteredCategories(filteredCategories.toMutableList().apply {
 								if (contains(category)) {
-									remove(category)
+									if (size > 1) {
+										remove(category)
+									}
 								} else {
 									add(category)
 								}
