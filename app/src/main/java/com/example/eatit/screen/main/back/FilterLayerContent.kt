@@ -59,6 +59,7 @@ fun FilterBackLayer(
 
 @Composable
 private fun SliderItem(
+	modifier: Modifier = Modifier,
 	text: String,
 	indicatorText: String,
 	value: Float,
@@ -66,31 +67,33 @@ private fun SliderItem(
 	range: ClosedFloatingPointRange<Float>
 ) {
 	val progress = (value - range.start) / (range.endInclusive - range.start)
-	Text(
-		text = text,
-		style = MaterialTheme.typography.body1,
-		modifier = Modifier.padding(bottom = 7.dp)
-	)
-	Text(
-		text = indicatorText,
-		style = MaterialTheme.typography.body2,
-		modifier = Modifier.layout { measurable, constraints ->
-			val placeable = measurable.measure(constraints)
-			constraints.maxWidth
-			val maxOffsetX = constraints.maxWidth - placeable.width
-			val offsetX = ceil(maxOffsetX * progress).toInt()
-			layout(offsetX + placeable.width, placeable.height) {
-				placeable.placeRelative(offsetX, 0)
+	Column(modifier = modifier) {
+		Text(
+			text = text,
+			style = MaterialTheme.typography.body1,
+			modifier = Modifier.padding(bottom = 7.dp)
+		)
+		Text(
+			text = indicatorText,
+			style = MaterialTheme.typography.body2,
+			modifier = Modifier.layout { measurable, constraints ->
+				val placeable = measurable.measure(constraints)
+				constraints.maxWidth
+				val maxOffsetX = constraints.maxWidth - placeable.width
+				val offsetX = ceil(maxOffsetX * progress).toInt()
+				layout(offsetX + placeable.width, placeable.height) {
+					placeable.placeRelative(offsetX, 0)
+				}
 			}
-		}
-	)
-	Slider(
-		value = value,
-		onValueChange = onValueChange,
-		activeTrackColor = MaterialTheme.colors.secondary,
-		thumbColor = tobaccoBrown,
-		valueRange = range
-	)
+		)
+		Slider(
+			value = value,
+			onValueChange = onValueChange,
+			activeTrackColor = MaterialTheme.colors.secondary,
+			thumbColor = tobaccoBrown,
+			valueRange = range
+		)
+	}
 }
 
 @OptIn(ExperimentalLayout::class)
