@@ -24,6 +24,7 @@ import com.example.eatit.data.CandyRepository
 import com.example.eatit.screen.main.back.BackDropMode
 import com.example.eatit.screen.main.back.BackLayerContent
 import com.example.eatit.screen.main.front.FrontLayerContent
+import com.example.eatit.screen.main.front.FrontScreen
 
 @Composable
 fun MainScreen() {

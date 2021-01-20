@@ -1,4 +1,4 @@
-package com.example.eatit.screen.main
+package com.example.eatit.screen.main.front
 
 enum class FrontScreen {
 	MAIN,

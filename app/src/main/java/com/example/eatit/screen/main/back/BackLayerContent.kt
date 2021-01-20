@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.eatit.data.CandyCategory
-import com.example.eatit.screen.main.FrontScreen
+import com.example.eatit.screen.main.front.FrontScreen
 
 @Composable
 fun BackLayerContent(
