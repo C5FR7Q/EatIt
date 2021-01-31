@@ -12,13 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.eatit.screen.main.front.screen.FrontCategoriesScreen
+import com.example.eatit.data.CandyCategory
 import com.example.eatit.screen.main.front.screen.FrontFavoriteScreen
 import com.example.eatit.screen.main.front.screen.FrontMainScreen
 import com.example.eatit.screen.main.front.screen.FrontProfileScreen
 
 @Composable
-fun FrontLayerContent(frontScreen: FrontScreen) {
+fun FrontLayerContent(categories: List<CandyCategory>, frontScreen: FrontScreen) {
 	Crossfade(current = frontScreen) {
 		Column {
 			Box(
@@ -34,8 +34,7 @@ fun FrontLayerContent(frontScreen: FrontScreen) {
 			}
 			Divider()
 			when (frontScreen) {
-				FrontScreen.MAIN -> FrontMainScreen()
-				FrontScreen.CATEGORIES -> FrontCategoriesScreen()
+				FrontScreen.MAIN -> FrontMainScreen(categories = categories)
 				FrontScreen.FAVORITE -> FrontFavoriteScreen()
 				FrontScreen.PROFILE -> FrontProfileScreen()
 			}

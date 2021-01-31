@@ -7,7 +7,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Slider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRippleIndication
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -155,10 +154,7 @@ private fun Chip(text: String, isSelected: Boolean, switchSelection: () -> Unit,
 	) {
 		Box(
 			modifier = modifier.clickable(
-				onClick = { switchSelection() },
-				indication = rememberRippleIndication(
-					color = MaterialTheme.colors.secondary
-				)
+				onClick = { switchSelection() }
 			)
 		) {
 			Text(

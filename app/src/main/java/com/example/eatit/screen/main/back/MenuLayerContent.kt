@@ -67,6 +67,7 @@ private fun MenuItem(
 		) {
 			Icon(
 				imageVector = icon,
+				contentDescription = null,
 				modifier = Modifier.padding(start = 8.dp, end = 24.dp)
 			)
 			Text(

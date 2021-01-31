@@ -57,7 +57,8 @@ fun MainScreen() {
 				onMenuClick = onMenuClick,
 				onCloseClick = onCloseClick,
 				onFilterClick = onFilterClick,
-				categories = categories
+				categories = categories,
+				selectedFrontScreen = selectedFrontScreen
 			)
 		}
 	) { innerPadding ->
@@ -68,7 +69,10 @@ fun MainScreen() {
 				filteredCategories = filteredCategories,
 				setFilteredCategories = setFilteredCategories,
 				selectedFrontScreen = selectedFrontScreen,
-				onSelectFrontScreen = setSelectedFrontScreen
+				onSelectFrontScreen = {
+					setSelectedFrontScreen(it)
+					setBackDropMode(BackDropMode.NONE)
+				}
 			)
 			Surface(
 				color = MaterialTheme.colors.surface,
@@ -83,7 +87,10 @@ fun MainScreen() {
 						enabled = backDropMode != BackDropMode.NONE
 					)
 				) {
-					FrontLayerContent(selectedFrontScreen)
+					FrontLayerContent(
+						categories = categories,
+						frontScreen = selectedFrontScreen
+					)
 				}
 			}
 		}
@@ -96,7 +103,8 @@ private fun EatItAppBar(
 	onMenuClick: () -> Unit,
 	onCloseClick: () -> Unit,
 	onFilterClick: () -> Unit,
-	categories: List<CandyCategory>
+	categories: List<CandyCategory>,
+	selectedFrontScreen: FrontScreen
 ) {
 	TopAppBar(
 		title = {
@@ -105,18 +113,27 @@ private fun EatItAppBar(
 		navigationIcon = {
 			if (backDropMode == BackDropMode.NONE) {
 				IconButton(onClick = onMenuClick) {
-					Icon(imageVector = Icons.Default.Menu)
+					Icon(
+						contentDescription = null,
+						imageVector = Icons.Default.Menu
+					)
 				}
 			} else {
 				IconButton(onClick = onCloseClick) {
-					Icon(imageVector = Icons.Default.Close)
+					Icon(
+						contentDescription = null,
+						imageVector = Icons.Default.Close
+					)
 				}
 			}
 		},
 		actions = {
-			if (categories.isNotEmpty() && backDropMode != BackDropMode.FILTER) {
+			if (categories.isNotEmpty() && selectedFrontScreen != FrontScreen.PROFILE && backDropMode != BackDropMode.FILTER) {
 				IconButton(onClick = onFilterClick) {
-					Icon(imageVector = Icons.Default.FilterList)
+					Icon(
+						contentDescription = null,
+						imageVector = Icons.Default.FilterList
+					)
 				}
 			}
 		},

@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit
 data class CandyCategory(
 	val name: String,
 	val candies: List<Candy>,
+	val imageUrl: String = "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
 	val isAllCategory: Boolean = false
 )
 
@@ -75,7 +76,7 @@ object CandyCategories {
 		CandyCategory(
 			"All delicious",
 			allCandies,
-			true
+			isAllCategory = true
 		)
 	}
 
