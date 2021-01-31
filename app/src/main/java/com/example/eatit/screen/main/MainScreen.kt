@@ -25,6 +25,7 @@ import com.example.eatit.screen.main.back.BackDropMode
 import com.example.eatit.screen.main.back.BackLayerContent
 import com.example.eatit.screen.main.front.FrontLayerContent
 import com.example.eatit.screen.main.front.FrontScreen
+import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
 fun MainScreen() {
@@ -107,6 +108,7 @@ private fun EatItAppBar(
 	selectedFrontScreen: FrontScreen
 ) {
 	TopAppBar(
+		modifier = Modifier.statusBarsPadding(),
 		title = {
 			Text(text = "Eat it")
 		},

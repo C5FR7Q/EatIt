@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.eatit.screen.main.MainScreen
 import com.example.eatit.ui.EatItTheme
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
 class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,9 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun App() {
 	EatItTheme {
-		MainScreen()
+		ProvideWindowInsets {
+			MainScreen()
+		}
 	}
 }
 
