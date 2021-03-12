@@ -74,7 +74,7 @@ private fun CategoryItem(
 	Box(modifier = modifier) {
 		Box(
 			modifier = Modifier
-				.preferredSize(122.dp, 182.dp)
+				.size(122.dp, 182.dp)
 				.clip(RoundedCornerShape(8.dp))
 		) {
 			Box(
@@ -110,7 +110,7 @@ private fun Promo(modifier: Modifier = Modifier) {
 	if (promoList.isNotEmpty()) {
 		Column(modifier = modifier.fillMaxWidth()) {
 			Box(modifier = Modifier.aspectRatio(1.5f)) {
-				Crossfade(current = promoList[selectedPromoPosition]) {
+				Crossfade(targetState = promoList[selectedPromoPosition]) {
 					CoilImage(
 						data = it.imageUrl,
 						contentDescription = null,
@@ -121,7 +121,7 @@ private fun Promo(modifier: Modifier = Modifier) {
 				IconButton(
 					modifier = Modifier
 						.padding(16.dp)
-						.preferredSize(48.dp)
+						.size(48.dp)
 						.align(Alignment.CenterStart)
 						.background(
 							color = Color.White.copy(alpha = 0.4f),
@@ -136,7 +136,7 @@ private fun Promo(modifier: Modifier = Modifier) {
 				IconButton(
 					modifier = Modifier
 						.padding(16.dp)
-						.preferredSize(48.dp)
+						.size(48.dp)
 						.align(Alignment.CenterEnd)
 						.background(
 							color = Color.White.copy(alpha = 0.4f),
@@ -149,11 +149,11 @@ private fun Promo(modifier: Modifier = Modifier) {
 					)
 				}
 			}
-			Crossfade(current = promoList[selectedPromoPosition]) {
+			Crossfade(targetState = promoList[selectedPromoPosition]) {
 				Row(
 					modifier = Modifier
 						.fillMaxWidth()
-						.preferredHeight(41.dp)
+						.height(41.dp)
 				) {
 					Box(
 						modifier = Modifier

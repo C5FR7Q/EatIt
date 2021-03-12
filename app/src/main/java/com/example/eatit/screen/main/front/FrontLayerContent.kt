@@ -19,7 +19,7 @@ import com.example.eatit.screen.main.front.screen.FrontProfileScreen
 
 @Composable
 fun FrontLayerContent(categories: List<CandyCategory>, frontScreen: FrontScreen) {
-	Crossfade(current = frontScreen) {
+	Crossfade(targetState = frontScreen) {
 		Column {
 			Box(
 				modifier = Modifier

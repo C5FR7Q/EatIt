@@ -52,7 +52,7 @@ private fun MenuItem(
 ) {
 	Surface(
 		modifier = Modifier
-			.preferredHeight(48.dp)
+			.height(48.dp)
 			.padding(horizontal = 8.dp)
 			.fillMaxWidth()
 			.then(modifier),

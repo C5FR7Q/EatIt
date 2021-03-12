@@ -3,10 +3,7 @@ package com.example.eatit.screen.main.back
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Slider
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -88,14 +85,15 @@ private fun SliderItem(
 		Slider(
 			value = value,
 			onValueChange = onValueChange,
-			activeTrackColor = MaterialTheme.colors.secondary,
-			thumbColor = tobaccoBrown,
-			valueRange = range
+			valueRange = range,
+			colors = SliderDefaults.colors(
+				thumbColor = tobaccoBrown,
+				activeTrackColor = MaterialTheme.colors.secondary
+			)
 		)
 	}
 }
 
-@OptIn(ExperimentalLayout::class)
 @Composable
 private fun Chips(
 	categories: List<CandyCategory>,
@@ -107,6 +105,7 @@ private fun Chips(
 		style = MaterialTheme.typography.body1,
 		modifier = Modifier.padding(top = 23.dp, bottom = 12.dp)
 	)
+/*
 	FlowRow(
 		mainAxisSpacing = 6.dp,
 		crossAxisSpacing = 6.dp
@@ -142,6 +141,7 @@ private fun Chips(
 			)
 		}
 	}
+*/
 
 }
 

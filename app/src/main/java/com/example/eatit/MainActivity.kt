@@ -1,9 +1,9 @@
 package com.example.eatit
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.eatit.screen.main.MainScreen
 import com.example.eatit.ui.EatItTheme

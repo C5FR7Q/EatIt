@@ -1,6 +1,7 @@
 package com.example.eatit.screen.main
 
-import androidx.compose.animation.animate
+import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -79,7 +80,7 @@ fun MainScreen() {
 				color = MaterialTheme.colors.surface,
 				modifier = Modifier
 					.fillMaxSize()
-					.alpha(animate(if (backDropMode == BackDropMode.NONE) 1f else 0.5f)),
+					.alpha(animateFloatAsState(if (backDropMode == BackDropMode.NONE) 1f else 0.5f).value),
 				shape = MaterialTheme.shapes.large
 			) {
 				Box(
