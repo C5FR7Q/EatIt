@@ -53,6 +53,8 @@ dependencies {
 	implementation "androidx.compose.material:material-icons-extended:$compose_version"
 	implementation "androidx.compose.runtime:runtime-rxjava3:$compose_version"
 
+	implementation "androidx.navigation:navigation-compose:1.0.0-alpha09"
+
 	implementation "com.google.android.material:material:$material_version"
 
 	implementation "dev.chrisbanes.accompanist:accompanist-coil:$accompanist_version"
