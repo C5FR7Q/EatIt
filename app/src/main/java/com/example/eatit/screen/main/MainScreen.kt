@@ -1,5 +1,6 @@
 package com.example.eatit.screen.main
 
+import androidx.compose.animation.*
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import com.example.eatit.screen.main.front.FrontLayerContent
 import com.example.eatit.screen.main.front.FrontScreen
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen() {
 	val (backDropMode, setBackDropMode) = remember { mutableStateOf(BackDropMode.NONE) }
@@ -64,17 +66,23 @@ fun MainScreen() {
 		}
 	) { innerPadding ->
 		Column(modifier = Modifier.padding(innerPadding)) {
-			BackLayerContent(
-				backDropMode = backDropMode,
-				categories = categories,
-				filteredCategories = filteredCategories,
-				setFilteredCategories = setFilteredCategories,
-				selectedFrontScreen = selectedFrontScreen,
-				onSelectFrontScreen = {
-					setSelectedFrontScreen(it)
-					setBackDropMode(BackDropMode.NONE)
-				}
-			)
+			AnimatedVisibility(
+				visible = backDropMode != BackDropMode.NONE,
+				enter = fadeIn(),
+				exit = fadeOut()
+			) {
+				BackLayerContent(
+					backDropMode = backDropMode,
+					categories = categories,
+					filteredCategories = filteredCategories,
+					setFilteredCategories = setFilteredCategories,
+					selectedFrontScreen = selectedFrontScreen,
+					onSelectFrontScreen = {
+						setSelectedFrontScreen(it)
+						setBackDropMode(BackDropMode.NONE)
+					}
+				)
+			}
 			Surface(
 				color = MaterialTheme.colors.surface,
 				modifier = Modifier
